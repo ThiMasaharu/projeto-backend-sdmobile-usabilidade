@@ -1,0 +1,28 @@
+{
+  "name": "projeto-sdmobile-usabilidade",
+  "version": "1.0.0",
+  "description": "Back-end do projeto de usabilidade",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThiMasaharu/projeto-sdmobile-usabilidade.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThiMasaharu/projeto-sdmobile-usabilidade/issues"
+  },
+  "homepage": "https://github.com/ThiMasaharu/projeto-sdmobile-usabilidade#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "config": "^3.3.8",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "mongodb": "^4.9.1",
+    "nodemon": "^2.0.19"
+  }
+}
