@@ -9,7 +9,7 @@ module.exports = () => {
 
     app.use(bodyParser.json());
 
-    require('../api/src/routes')(app);
+    require('../api/src/consultas/routes/consulta-routes')(app);
 
     return app;
 }
