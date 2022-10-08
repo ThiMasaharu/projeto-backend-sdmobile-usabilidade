@@ -12,6 +12,7 @@ module.exports = () => {
     app.use(bodyParser.json());
 
     require('../api/src/consultas/routes/consulta-routes')(app);
+    require('../api/src/usuarios/routes/usuarios/routes')(app);
 
     return app;
 }
