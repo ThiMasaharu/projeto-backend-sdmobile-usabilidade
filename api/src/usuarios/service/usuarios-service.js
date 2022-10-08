@@ -24,7 +24,7 @@ async function inserirUsuario(usuario) {
     try {
         await client.connect();
         const res = await client.db('Gestao').collection('Usuarios').insertOne(usuario);
-        
+
         console.log(`Foi inserido um usuário. ID: ${res.insertedId}`);
     } catch(e) {
         console.log(e)
@@ -38,6 +38,7 @@ async function atualizarUsuario(id, dados) {
         await client.connect();
         const res = await client.db('Gestao').collection('Usuarios').updateOne({_id: new ObjectId(id)}, 
                                                                                {$set: dados});
+        
         return res;
     } catch(e) {
         console.log(e);
@@ -49,8 +50,8 @@ async function atualizarUsuario(id, dados) {
 async function deletarUsuario(id) {
     try {
         await client.connect();
-        const res = await client.db('Gestao').collection('Usuario').deleteOne({_id: new ObjectId(id)});
-        console.log(res);
+        const res = await client.db('Gestao').collection('Usuarios').deleteOne({_id: new ObjectId(id)});
+        
         return res
     } catch(e) {
         console.log(e);

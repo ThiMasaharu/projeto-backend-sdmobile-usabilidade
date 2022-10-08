@@ -1,4 +1,4 @@
-const UsuarioService = require('../service/usuario-service')
+const UsuarioService = require('../service/usuarios-service')
 
 module.exports = () => {
     const controller = {};

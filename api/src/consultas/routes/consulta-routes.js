@@ -5,7 +5,10 @@ module.exports = app => {
     //     .get(consultaController.listaDb);
 
     app.get('/api/v1/consultas', (req, res) => {
-        ConsultaController.recuperarConsultas()
+        if (Object.keys(req.query).length !== 0) {
+            req.body = req.query
+        }
+        ConsultaController.recuperarConsultas(req.body)
         ConsultaController.listaClientes.then((result) => {
             res.send(result);
         });

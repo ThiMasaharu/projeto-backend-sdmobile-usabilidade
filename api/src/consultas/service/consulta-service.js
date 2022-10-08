@@ -6,11 +6,11 @@ const uri = process.env.DB_LINK
 
 const client = new MongoClient(uri);
 
-async function recuperarConsultas(){
+async function recuperarConsultas(entrada){
     let list = []
     try{
         await client.connect()
-        const res = await client.db('Gestao').collection('Consultas').find({}).toArray();
+        const res = await client.db('Gestao').collection('Consultas').find(entrada).toArray();
         
         list = res
     }catch(e){

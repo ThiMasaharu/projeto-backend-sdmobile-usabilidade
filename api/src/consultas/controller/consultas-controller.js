@@ -9,8 +9,12 @@ module.exports = () =>{
         ConsultaService.inserirRegistroCliente(registro);
     }
 
-    controller.recuperarConsultas = () => {
-        controller.listaClientes = ConsultaService.recuperarConsultas();
+    controller.recuperarConsultas = (entrada) => {
+        if (entrada.idade !== undefined) {
+            entrada.idade = Number(entrada.idade);
+        }
+        console.log(entrada);
+        controller.listaClientes = ConsultaService.recuperarConsultas(entrada);
     };
 
     controller.atualizarRegistro = (id, dados) => ConsultaService.atualizarRegistro(id, dados)
