@@ -13,9 +13,12 @@ module.exports = () =>{
         if (entrada.idade !== undefined) {
             entrada.idade = Number(entrada.idade);
         }
-        console.log(entrada);
         controller.listaClientes = ConsultaService.recuperarConsultas(entrada);
     };
+
+    controller.recuperarConsultaPorId = (entrada) => {
+        controller.consulta = ConsultaService.recuperarConsultaPorId(entrada);
+    }
 
     controller.atualizarRegistro = (id, dados) => ConsultaService.atualizarRegistro(id, dados)
 

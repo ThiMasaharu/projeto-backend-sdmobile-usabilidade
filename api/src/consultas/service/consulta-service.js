@@ -21,6 +21,24 @@ async function recuperarConsultas(entrada){
     return list
 } 
 
+async function recuperarConsultaPorId(entrada){
+    let list = []
+    try{
+        entradaId = { _id: new ObjectId(entrada._id) }
+        await client.connect()
+        const res = await client.db('Gestao').collection('Consultas').findOne(entradaId);
+        
+        list = res
+    }catch(e){
+        console.log(e)
+    }finally{
+        setTimeout(() => {
+            client.close();
+        }, 200)
+    }
+    return list
+} 
+
 async function inserirRegistroCliente(registro){
     try{
         await client.connect();
@@ -30,11 +48,14 @@ async function inserirRegistroCliente(registro){
     }catch(e){
         console.log(e);
     }finally{
-        await client.close();
+        setTimeout(() => {
+            client.close();
+        }, 200)
     }
 }
 
 async function atualizarRegistro(id, dados){
+    
     try{
         await client.connect()
         const res = await client.db('Gestao').collection('Consultas').updateOne({ 
@@ -46,7 +67,9 @@ async function atualizarRegistro(id, dados){
     }catch(e){
         console.log(e);
     }finally{
-        await client.close()
+        setTimeout(() => {
+            client.close();
+        }, 200)
     }
 }
 
@@ -63,8 +86,10 @@ async function deletarRegistro(id){
     }
 }
 
+
 module.exports = {
     recuperarConsultas,
+    recuperarConsultaPorId,
     inserirRegistroCliente,
     atualizarRegistro,
     deletarRegistro
