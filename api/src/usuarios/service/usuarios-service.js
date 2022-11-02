@@ -1,6 +1,7 @@
 const {MongoClient} = require('mongodb')
 const ObjectId = require("mongodb").ObjectId;
 require('dotenv').config();
+const Usuarios = require('../model/usuarios-model')
 
 const uri = process.env.DB_LINK
 
@@ -8,56 +9,49 @@ const client = new MongoClient(uri);
 
 async function recuperarUsuario() {
     let list = []
-    try {
-        await client.connect();
-        const res = await client.db('Gestao').collection('Usuarios').find({}).toArray();
-        list = res;
-    } catch(e) {
-        console.log(e);
-    } finally {
-        await client.close();
-    }
-    return list;
+
+    await Usuarios.find().then((documents) => {
+        list = documents
+    }).catch((err) => {
+        console.log(err);
+    })
+
+    return list
 }
 
-async function inserirUsuario(usuario) {
-    try {
-        await client.connect();
-        const res = await client.db('Gestao').collection('Usuarios').insertOne(usuario);
+async function inserirUsuario(registro) {
 
-        console.log(`Foi inserido um usuário. ID: ${res.insertedId}`);
-    } catch(e) {
-        console.log(e)
-    } finally {
-        await client.close();
-    }
+    const usuario = new Consultas(registro)
+    usuario.save().then((usuaioInserido) => {
+        console.log(usuario);
+        console.log(`A consulta foi inserida. id: ${usuaioInserido._id}`);
+    }).catch((err)=>{
+        console.log(err);
+    })
+
 }
 
 async function atualizarUsuario(id, dados) {
-    try {
-        await client.connect();
-        const res = await client.db('Gestao').collection('Usuarios').updateOne({_id: new ObjectId(id)}, 
-                                                                               {$set: dados});
-        
-        return res;
-    } catch(e) {
-        console.log(e);
-    } finally {
-        await client.close();
-    }
+    
+    const usuario = new Consultas(dados)
+    const usuarioId = { _id: new ObjectId(id) }
+
+    Usuarios.updateOne(usuarioId, usuario).then((resposta) => {
+        console.log(`O usuario foi atualizado com sucesso`);
+    }).catch((err)=>{
+        console.log(err);
+    })
 }
 
 async function deletarUsuario(id) {
-    try {
-        await client.connect();
-        const res = await client.db('Gestao').collection('Usuarios').deleteOne({_id: new ObjectId(id)});
-        
-        return res
-    } catch(e) {
-        console.log(e);
-    } finally {
-        await client.close();
-    }
+
+    const usuarioId = { _id: new ObjectId(id) }
+
+    Usuarios.deleteOne(usuarioId).then((resposta) => {
+        console.log(`O usuario foi deletado com sucesso`);
+    }).catch((err)=>{
+        console.log(err);
+    })
 }
 
 module.exports = {

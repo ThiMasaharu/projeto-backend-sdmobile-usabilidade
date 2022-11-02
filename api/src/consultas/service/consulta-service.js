@@ -1,89 +1,67 @@
-const {MongoClient} = require('mongodb')
 const ObjectId = require("mongodb").ObjectId;
 require('dotenv').config();
+const Consultas = require('../model/consultas-model')
 
-const uri = process.env.DB_LINK
-
-const client = new MongoClient(uri);
 
 async function recuperarConsultas(entrada){
     let list = []
-    try{
-        await client.connect()
-        const res = await client.db('Gestao').collection('Consultas').find(entrada).toArray();
-        
-        list = res
-    }catch(e){
-        console.log(e)
-    }finally{
-        await client.close()
-    }
+
+    await Consultas.find().then((documents) => {
+        list = documents
+    }).catch((err) => {
+        console.log(err);
+    })
+
     return list
 } 
 
 async function recuperarConsultaPorId(entrada){
     let list = []
-    try{
-        entradaId = { _id: new ObjectId(entrada._id) }
-        await client.connect()
-        const res = await client.db('Gestao').collection('Consultas').findOne(entradaId);
-        
-        list = res
-    }catch(e){
-        console.log(e)
-    }finally{
-        setTimeout(() => {
-            client.close();
-        }, 200)
-    }
+
+    entradaId = { _id: new ObjectId(entrada._id) }
+    await Consultas.find(entradaId).then((documents) => {
+        console.log(documents);
+        list = documents
+    }).catch((err) => {
+        console.log(err);
+    })
+
     return list
 } 
 
 async function inserirRegistroCliente(registro){
-    try{
-        await client.connect();
-        const res = await client.db('Gestao').collection('Consultas').insertOne(registro);
-        
-        console.log(`Foi inserido um registro de consulta. ID: ${res.insertedId}`)
-    }catch(e){
-        console.log(e);
-    }finally{
-        setTimeout(() => {
-            client.close();
-        }, 200)
-    }
+    const consulta = new Consultas(registro)
+    consulta.save().then((consultaInserida) => {
+        console.log(consulta);
+        console.log(`A consulta foi inserida. id: ${consultaInserida._id}`);
+    }).catch((err)=>{
+        console.log(err);
+    })
 }
 
 async function atualizarRegistro(id, dados){
-    
-    try{
-        await client.connect()
-        const res = await client.db('Gestao').collection('Consultas').updateOne({ 
-                _id: new ObjectId(id) // tem que importar a função ObjectId
-            }, 
-            {$set: dados}
-        )
-        return res;
-    }catch(e){
-        console.log(e);
-    }finally{
-        setTimeout(() => {
-            client.close();
-        }, 200)
-    }
+
+    const consulta = new Consultas(dados)
+    const consultaId = { _id: new ObjectId(id) }
+
+    Consultas.updateOne(consultaId, consulta).then((resposta) => {
+        console.log(`A consulta foi atualizada com sucesso`);
+    }).catch((err)=>{
+        console.log(err);
+    })
+
 }
 
 async function deletarRegistro(id){
-    try{
-        await client.connect()
-        const res = await client.db("Gestao").collection('Consultas').deleteOne({_id: new ObjectId(id)})
-        console.log(res);
-        return res
-    }catch(e){
-        console.log(e)
-    }finally{
-        await client.close()
-    }
+
+    const consultaId = { _id: new ObjectId(id) }
+
+    Consultas.deleteOne(consultaId).then((resposta) => {
+        console.log(`A consulta foi deletada com sucesso`);
+    }).catch((err)=>{
+        console.log(err);
+    })
+
 }
 
 
