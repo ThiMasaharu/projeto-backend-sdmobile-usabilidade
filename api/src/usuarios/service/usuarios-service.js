@@ -3,9 +3,7 @@ const ObjectId = require("mongodb").ObjectId;
 require('dotenv').config();
 const Usuarios = require('../model/usuarios-model')
 
-const uri = process.env.DB_LINK
 
-const client = new MongoClient(uri);
 
 async function recuperarUsuario() {
     let list = []
@@ -21,10 +19,10 @@ async function recuperarUsuario() {
 
 async function inserirUsuario(registro) {
 
-    const usuario = new Consultas(registro)
+    const usuario = new Usuarios(registro)
     usuario.save().then((usuaioInserido) => {
         console.log(usuario);
-        console.log(`A consulta foi inserida. id: ${usuaioInserido._id}`);
+        console.log(`O usuário foi inserido. id: ${usuaioInserido._id}`);
     }).catch((err)=>{
         console.log(err);
     })
@@ -33,7 +31,7 @@ async function inserirUsuario(registro) {
 
 async function atualizarUsuario(id, dados) {
     
-    const usuario = new Consultas(dados)
+    const usuario = new Usuarios(dados)
     const usuarioId = { _id: new ObjectId(id) }
 
     Usuarios.updateOne(usuarioId, usuario).then((resposta) => {
