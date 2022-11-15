@@ -8,8 +8,8 @@ module.exports = () => {
         UsuarioService.inserirUsuario(usuario);
     }
 
-    controller.recuperarUsuario = () => {
-        controller.listaUsuario = UsuarioService.recuperarUsuario();
+    controller.recuperarUsuario = (entrada) => {
+        controller.listaUsuario = UsuarioService.recuperarUsuario(entrada);
     }
 
     controller.atualizarUsuario = (id, dados) => UsuarioService.atualizarUsuario(id, dados);

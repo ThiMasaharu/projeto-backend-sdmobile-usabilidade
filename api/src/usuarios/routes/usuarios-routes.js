@@ -2,7 +2,10 @@ module.exports = app => {
     const UsuarioController = require('../controller/usuarios-controller')();
     
     app.get('/api/v1/usuarios', (req, res) => {
-        UsuarioController.recuperarUsuario();
+        if (Object.keys(req.query).length !== 0) {
+            req.body = req.query
+        }
+        UsuarioController.recuperarUsuario(req.body);
         UsuarioController.listaUsuario.then((result) => {
             res.send(result);
         });

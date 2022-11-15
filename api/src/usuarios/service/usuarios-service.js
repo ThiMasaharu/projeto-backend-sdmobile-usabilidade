@@ -3,13 +3,12 @@ const ObjectId = require("mongodb").ObjectId;
 require('dotenv').config();
 const Usuarios = require('../model/usuarios-model')
 
-
-
-async function recuperarUsuario() {
+async function recuperarUsuario(entrada) {
     let list = []
 
-    await Usuarios.find().then((documents) => {
+    await Usuarios.find(entrada).then((documents) => {
         list = documents
+        console.log(list)
     }).catch((err) => {
         console.log(err);
     })
