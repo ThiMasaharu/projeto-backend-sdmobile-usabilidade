@@ -9,6 +9,7 @@ const Usuario = new Schema({
     contato: {type: String, required: false},
     email: {type: String, required: false},
     senha: {type: String, required: false},
+    confirmarSenha: {type: String, required: false},
     tipoUsuario: {type: String, required: false}
 })
 
