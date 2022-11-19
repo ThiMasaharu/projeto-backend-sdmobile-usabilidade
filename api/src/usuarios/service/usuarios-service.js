@@ -16,6 +16,25 @@ async function recuperarUsuario(entrada) {
     return list
 }
 
+async function recuperarUsuarioPorParte(entrada) {
+    let list = []
+
+    entradaRegex = {
+        "nome": {$regex: entrada.nome},
+        "tipoUsuario": Number(entrada.tipoUsuario)
+    }
+
+    console.log(entradaRegex);
+    await Usuarios.find(entradaRegex).then((documents) => {
+        list = documents
+        console.log(list)
+    }).catch((err) => {
+        console.log(err);
+    })
+
+    return list
+}
+
 async function inserirUsuario(registro) {
 
     const usuario = new Usuarios(registro)
@@ -53,6 +72,7 @@ async function deletarUsuario(id) {
 
 module.exports = {
     recuperarUsuario,
+    recuperarUsuarioPorParte,
     inserirUsuario,
     atualizarUsuario,
     deletarUsuario

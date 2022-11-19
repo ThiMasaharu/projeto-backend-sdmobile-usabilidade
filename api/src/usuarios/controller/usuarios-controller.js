@@ -12,6 +12,10 @@ module.exports = () => {
         controller.listaUsuario = UsuarioService.recuperarUsuario(entrada);
     }
 
+    controller.recuperarUsuarioPorParte = (entrada) => {
+        controller.listaUsuario = UsuarioService.recuperarUsuarioPorParte(entrada);
+    }
+
     controller.atualizarUsuario = (id, dados) => UsuarioService.atualizarUsuario(id, dados);
 
     controller.deletarUsuario = (id) => UsuarioService.deletarUsuario(id);

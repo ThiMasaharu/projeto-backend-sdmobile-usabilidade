@@ -25,6 +25,8 @@ module.exports = app => {
     })
 
     app.post('/api/v1/consultas', (req, res) => {
+        console.log("entrou");
+        console.log(req.body);
         ConsultaController.inserirRegistro(req.body);
         res.send("Registro inserido com sucesso!");
     })

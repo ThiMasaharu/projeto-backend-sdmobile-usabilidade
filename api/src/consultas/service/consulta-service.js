@@ -6,7 +6,7 @@ const Consultas = require('../model/consultas-model')
 async function recuperarConsultas(entrada){
     let list = []
 
-    await Consultas.find().then((documents) => {
+    await Consultas.find(entrada).then((documents) => {
         list = documents
     }).catch((err) => {
         console.log(err);
@@ -30,6 +30,8 @@ async function recuperarConsultaPorId(entrada){
 } 
 
 async function inserirRegistroCliente(registro){
+    registro.paciente = JSON.parse(registro.paciente)
+    registro.medico = JSON.parse(registro.medico)
     const consulta = new Consultas(registro)
     consulta.save().then((consultaInserida) => {
         console.log(consulta);

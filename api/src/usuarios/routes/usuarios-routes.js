@@ -5,7 +5,19 @@ module.exports = app => {
         if (Object.keys(req.query).length !== 0) {
             req.body = req.query
         }
+        console.log(req.body);
         UsuarioController.recuperarUsuario(req.body);
+        UsuarioController.listaUsuario.then((result) => {
+            res.send(result);
+        });
+    })
+
+    app.get('/api/v1/usuarios/buscar-parte', (req, res) => {
+        if (Object.keys(req.query).length !== 0) {
+            req.body = req.query
+        }
+        console.log(req.body);
+        UsuarioController.recuperarUsuarioPorParte(req.body);
         UsuarioController.listaUsuario.then((result) => {
             res.send(result);
         });
