@@ -1,7 +1,7 @@
 <h1>Back-end</h1>
 
-Fernando Hideyoshi Yonamine Fusada - 820148604 <br />
-Lucas Cabral das Virgens - 820138102 <br />
+Fernando Hideyoshi Yonamine Fusada - 820148604; <br />
+Lucas Cabral das Virgens - 820138102; <br />
 Thiago Masaharu Sakugawa - 820142348
 
 <h1>1.2.0</h1>
