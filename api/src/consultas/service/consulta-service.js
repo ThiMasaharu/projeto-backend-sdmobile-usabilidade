@@ -34,7 +34,6 @@ async function inserirRegistroCliente(registro){
     registro.medico = JSON.parse(registro.medico)
     const consulta = new Consultas(registro)
     consulta.save().then((consultaInserida) => {
-        console.log(consulta);
         console.log(`A consulta foi inserida. id: ${consultaInserida._id}`);
     }).catch((err)=>{
         console.log(err);
@@ -43,10 +42,12 @@ async function inserirRegistroCliente(registro){
 
 async function atualizarRegistro(id, dados){
 
-    const consulta = new Consultas(dados)
+    dados.paciente = JSON.parse(dados.paciente)
+    dados.medico = JSON.parse(dados.medico)
+    // const consulta = Consultas(dados)
     const consultaId = { _id: new ObjectId(id) }
 
-    Consultas.updateOne(consultaId, consulta).then((resposta) => {
+    Consultas.updateOne(consultaId, dados).then((resposta) => {
         console.log(`A consulta foi atualizada com sucesso`);
     }).catch((err)=>{
         console.log(err);
