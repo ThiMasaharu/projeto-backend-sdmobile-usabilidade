@@ -16,7 +16,6 @@ module.exports = app => {
         if (Object.keys(req.query).length !== 0) {
             req.body = req.query
         }
-        console.log(req.body);
         UsuarioController.recuperarUsuarioPorParte(req.body);
         UsuarioController.listaUsuario.then((result) => {
             res.send(result);
@@ -30,11 +29,19 @@ module.exports = app => {
     })
 
     app.put('/api/v1/usuarios/:id', (req, res) => {
+        console.log("entrou");
+        if (Object.keys(req.query).length !== 0) {
+            req.body = req.query
+        }
+        console.log(req.body);
         UsuarioController.atualizarUsuario(req.params.id, req.body);
         res.send('Usuário atualizado com sucesso!');
     })
 
     app.delete('/api/v1/usuarios/:id', (req, res) => {
+        if (Object.keys(req.query).length !== 0) {
+            req.body = req.query
+        }
         console.log(req.params.id);
         UsuarioController.deletarUsuario(req.params.id);
         res.send('Usuário deletado com sucesso!')

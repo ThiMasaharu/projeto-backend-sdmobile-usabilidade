@@ -8,7 +8,6 @@ async function recuperarUsuario(entrada) {
 
     await Usuarios.find(entrada).then((documents) => {
         list = documents
-        console.log(list)
     }).catch((err) => {
         console.log(err);
     })
@@ -24,10 +23,8 @@ async function recuperarUsuarioPorParte(entrada) {
         "tipoUsuario": Number(entrada.tipoUsuario)
     }
 
-    console.log(entradaRegex);
     await Usuarios.find(entradaRegex).then((documents) => {
         list = documents
-        console.log(list)
     }).catch((err) => {
         console.log(err);
     })
@@ -38,8 +35,8 @@ async function recuperarUsuarioPorParte(entrada) {
 async function inserirUsuario(registro) {
 
     const usuario = new Usuarios(registro)
+    
     usuario.save().then((usuaioInserido) => {
-        console.log(usuario);
         console.log(`O usuário foi inserido. id: ${usuaioInserido._id}`);
     }).catch((err)=>{
         console.log(err);
@@ -49,10 +46,9 @@ async function inserirUsuario(registro) {
 
 async function atualizarUsuario(id, dados) {
     
-    const usuario = new Usuarios(dados)
     const usuarioId = { _id: new ObjectId(id) }
 
-    Usuarios.updateOne(usuarioId, usuario).then((resposta) => {
+    Usuarios.updateOne(usuarioId, dados).then((resposta) => {
         console.log(`O usuario foi atualizado com sucesso`);
     }).catch((err)=>{
         console.log(err);
