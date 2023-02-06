@@ -8,6 +8,7 @@ async function recuperarUsuario(entrada) {
 
     await Usuarios.find(entrada).then((documents) => {
         list = documents
+        console.log(list);
     }).catch((err) => {
         console.log(err);
     })

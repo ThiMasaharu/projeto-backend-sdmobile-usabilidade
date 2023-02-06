@@ -1,5 +1,6 @@
 module.exports = app => {
     const UsuarioController = require('../controller/usuarios-controller')();
+    let mensagem = "";
     
     app.get('/api/v1/usuarios', (req, res) => {
         if (Object.keys(req.query).length !== 0) {
@@ -8,7 +9,10 @@ module.exports = app => {
         console.log(req.body);
         UsuarioController.recuperarUsuario(req.body);
         UsuarioController.listaUsuario.then((result) => {
-            res.send(result);
+            if (result.length === 0) {
+                mensagem = "Login ou senha incorretos. \n Por favor, tente novamente ou redefina sua senha."
+            }
+            res.send({result, mensagem});
         });
     })
 
